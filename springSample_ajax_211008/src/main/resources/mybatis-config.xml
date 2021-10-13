@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0/EN"
+				"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- myBatis에서 type="edu.study.vo.BoardVO"의 별칭을 boardVO로 사용하겠다. -->
+	<typeAliases>
+	<!-- type="edu.study.vo.BoardVO" 타입에 해당되는 객체를 만들겠다는 의미 -->
+        <typeAlias type="edu.study.vo.BoardVO" alias="boardVO"/>
+        <typeAlias type="edu.study.vo.BoardUseMyBatisVO" alias="boardMVO"/>
+        <typeAlias type="edu.study.vo.SampleVO" alias="sampleVO"/>
+    </typeAliases>
+
+</configuration>

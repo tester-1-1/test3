@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+	<!-- DB 관련된 정보를 담는다. -->
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"  value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"  value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<!-- 오라클 사용자 이름 -->
+		<property name="username" value="system" />
+		<!-- 오라클 사용자 비밀번호 -->
+		<property name="password" value="1234" />
+	</bean> 
+	
+	<!-- MyBatis 객체 등록 -->
+	<!-- sqlSessionFactory : DB connection을 다룬다 -> 알아서 DB close 해줌. -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 어떤 DB를 연결할것인가 --> 
+		<property name="dataSource" ref="dataSource" /> 
+		<!-- classpath -> Java Resources/src/main.resources 폴더를 향한다.-->
+		<!-- mybatis 설정정보 위치 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml" /> 
+		<!-- 반드시 classpath 안에 mappers라는 폴더가 있어야한다. -->
+		<!-- sql문을 담고있는 xml 파일 위치 -->
+		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>
+	</bean>
+	<!-- sqlSession : DB 연결된 객체를 이용해서 쿼리문 실행시 사용하는 객체. -->
+	 <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+    </bean>	
+</beans>

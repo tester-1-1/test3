@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="edu.study.mapper.boardMapper">
+
+	 <select id="totalBoard" resultType="int">
+         SELECT count(*)
+          FROM board
+    </select>
+
+     <select id="listBoard" resultType="boardVO">
+         SELECT bno
+        	 , btitle
+        	 , bcontent
+        	 , bdate
+        	 , bhit 
+          FROM board
+          WHERE 1=1
+    </select>
+    
+    <select id="viewBoard" parameterType="int" resultType="boardVO">
+    	SELECT bno
+    		, btitle
+    		, bcontent
+    		, bdate
+    		, bhit
+    	FROM board
+       WHERE bno = #{bno}
+    </select>
+    
+    <delete id="deleteBoard" parameterType="int">
+    	DELETE FROM board WHERE bno = #{bno} 
+    </delete>
+    
+    <insert id="insertBoard" parameterType="boardVO">
+     <![CDATA[
+    	INSERT INTO board(
+    		  btitle
+    		, bcontent
+    		, mno
+    		, bdate
+    		, bhit
+    		, bno
+    	)VALUES(
+    		 #{btitle}
+    		,#{bcontent}
+    		, 1
+    		, sysdate
+    		, 0 
+    		, boardSEQ.nextval
+    	)
+     ]]>	
+    <selectKey resultType="integer" keyProperty="bno" order="AFTER">
+        SELECT MAX(bno) FROM board        
+    </selectKey>
+    </insert>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!--n amespace : mapper에 대한 별칭 / 패키지위치.mapper.이름 -->
+<mapper namespace="edu.study.mapper.boardUseMybatisMapper">
+<!--
+	id="totalBoard" : 나중에 호출할 때 사용할 mapper의 이름
+	resultType="int" : 리턴타입이 int다.
+ -->
+ <!-- <select> 실행한 결과를 boardMVO로 리턴하겠다. -->
+	 <select id="listBoard" resultType="boardMVO">
+         SELECT bidx
+         	  , subject
+         	  , contents
+         	  , writer
+         FROM openb_board
+         WHERE 1=1
+    </select>
+<!-- parameterType 속성 : 외부에서 넘어온 값이 파라미터 -->
+</mapper>
